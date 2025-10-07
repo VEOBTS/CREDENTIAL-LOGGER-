@@ -1,0 +1,30 @@
+:root{
+  --bg:#0e0e0f; --card:#121214; --muted:#bfbfc1; --accent:#3b82f6; --ash:#bfbfbf;
+  --radius:12px;
+}
+*{box-sizing:border-box}
+html,body{height:100%; margin:0; font-family:Inter,system-ui,Segoe UI,Arial,sans-serif; background:linear-gradient(180deg,#070708 0%, #111214 100%); color:#fff}
+.wrap{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px}
+.card{width:100%; max-width:980px; background:rgba(255,255,255,0.02); border-radius:var(--radius); padding:28px; box-shadow:0 14px 40px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.03)}
+h1{margin:0 0 12px 0; font-size:22px}
+.consent{background:#151517; padding:14px; border-radius:8px; margin-bottom:16px; color:var(--muted)}
+.row{display:flex; gap:10px; align-items:center}
+input, button, select, textarea{font:inherit}
+input[type="text"], input[type="password"]{
+  width:100%; padding:12px 14px; margin:8px 0; background:#0b0b0c; border:1px solid #222; color:#fff; border-radius:8px;
+}
+button{background:var(--accent); color:#fff; border:none; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:600}
+.link{color:var(--ash); text-decoration:none; padding:10px 12px; border-radius:8px; background:transparent}
+.hidden{display:none}
+.muted{color:var(--muted)}
+.status-success{color:#8be28b; font-weight:700}
+.status-fail{color:#ffb4b4; font-weight:700}
+.table{margin-top:16px; border-radius:8px; overflow:hidden; background:#09090a}
+.table-row{display:grid; grid-template-columns: 40px 160px 160px 120px 60px 120px 100px 120px; padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.03); font-size:13px; align-items:center}
+.table-row.header{background:rgba(255,255,255,0.02); color:var(--ash); font-weight:700}
+.small{font-size:13px}
+.flash.error{color:#ffb4b4; margin-bottom:12px}
+.controls{display:flex; gap:8px; margin-top:12px}
+@media (max-width:880px){
+  .table-row{grid-template-columns: 30px 120px 120px 100px 50px 100px 80px 80px; font-size:12px}
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Honeypot — Login</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Secure Portal</h1>
+
+      <div id="consentBox" class="consent">
+        <p><strong>Notice:</strong> This page is a controlled honeypot for authorized testing only. Do NOT enter real production credentials. By continuing you confirm you have permission to test.</p>
+        <button id="acceptBtn">I understand — continue</button>
+      </div>
+
+      <form id="loginForm" method="post" action="/login" class="hidden">
+        <input name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="hidden" name="screen" id="screenField">
+        <input type="hidden" name="timezone" id="tzField">
+        <div class="row" style="margin-top:12px">
+          <button type="submit">Login</button>
+          <a class="link" href="/admin">Admin</a>
+        </div>
+      </form>
+
+      {% if submitted %}
+        {% if success %}
+          <p class="small status-success" id="loginMessage">Login successful for <strong>{{ username }}</strong>. (Demo only — no real account access.)</p>
+        {% else %}
+          <p class="small status-fail" id="loginMessage">Login recorded for <strong>{{ username }}</strong>. (Unsuccessful.)</p>
+        {% endif %}
+      {% endif %}
+
+      <p class="muted small" style="margin-top:12px">Local logs are viewable only in the admin panel.</p>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

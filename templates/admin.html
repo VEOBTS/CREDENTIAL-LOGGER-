@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Honeypot Admin</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Honeypot Admin</h1>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for cat, msg in messages %}
+            <div class="flash {{ cat }}">{{ msg }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      {% if not logged_in %}
+        <p class="muted small">Admin login (local only). Default: admin / admin</p>
+        <form method="post">
+          <input name="username" placeholder="Admin username" required>
+          <input name="password" type="password" placeholder="Admin password" required>
+          <div class="row" style="margin-top:12px">
+            <button type="submit">Unlock</button>
+            <a class="link" href="/">Back</a>
+          </div>
+        </form>
+      {% else %}
+        <div class="row controls">
+          <a class="link" href="/admin/export">Export logs (.txt)</a>
+          <a class="link" href="/admin/logout">Logout</a>
+        </div>
+
+        <h2 style="margin-top:16px">Attempts</h2>
+        {% if attempts %}
+          <div class="table">
+            <div class="table-row header">
+              <div>ID</div><div>Time (UTC)</div><div>User</div><div>Hash</div><div>Weak</div><div>IP</div><div>Screen</div><div>TZ</div>
+            </div>
+            {% for a in attempts %}
+              <div class="table-row">
+                <div>{{ a.id }}</div>
+                <div>{{ a.time }}</div>
+                <div>{{ a.username }}</div>
+                <div>{{ a.password_hash[:16] }}...</div>
+                <div>{{ 'Yes' if a.weak else 'No' }}</div>
+                <div>{{ a.ip }}</div>
+                <div>{{ a.screen }}</div>
+                <div>{{ a.timezone }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="muted small">No attempts yet.</p>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
